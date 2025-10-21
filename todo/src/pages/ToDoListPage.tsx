@@ -3,10 +3,15 @@ import { Form } from "../components/Form/Form"
 import { Header } from "../components/Header/Header"
 import { ToDoList } from "../components/ToDoList/ToDoList"
 import { ToDo } from "../models/todo-item"
+import { toast } from 'react-toastify';
 
 export const ToDoListPage = () => {
   const [todos, setTodos] = useState<ToDo[]>([])
 
+  const notifyInfo = (info: string) => {
+    toast.info(info)
+
+  }
   const createNewToDo = (text: string) => {
     const newToDo: ToDo = {
       id: todos.length,
@@ -14,6 +19,7 @@ export const ToDoListPage = () => {
       isDone: false
     }
     setTodos([...todos, newToDo])
+    notifyInfo(`Добавлена новая задача: ${newToDo.text}`)
   }
 
   const updateToDo = (toDoItem: ToDo) => {
@@ -24,11 +30,13 @@ export const ToDoListPage = () => {
       return todo
     })
     setTodos(newTodos)
+    notifyInfo(`Статус задачи ${toDoItem.text} изменен на ${toDoItem.isDone ? 'выполнен' : 'не выполнен'}`)
   }
 
   const deleteToDo = (toDoItem: ToDo) => {
     const newTodos = todos.filter((todo) => todo.id !== toDoItem.id)
     setTodos(newTodos)
+    notifyInfo(`Задача ${toDoItem.text} удалена`)
   }
 
   return (
