@@ -1,14 +1,17 @@
-import React, { useState } from 'react'
+import React from 'react'
 import './Form.scss'
+import { useAppDispatch, useAppSelector } from '../../hooks'
+import { setText, clearText } from '../../feature/formSlice'
 
 export const Form = (props: { createNewToDo: Function }) => {
-    const [text, setText] = useState<string>('')
+    const dispatch = useAppDispatch()
+    const text = useAppSelector((state) => state.form.text)
 
     const formSubmit = (event: React.SyntheticEvent) => {
         event.preventDefault()
         if (text) {
             props.createNewToDo(text)
-            setText('')
+            dispatch(clearText())
         }
     }
 
@@ -16,7 +19,11 @@ export const Form = (props: { createNewToDo: Function }) => {
         <div className="form-wrapper">
             <form action="#" onSubmit={formSubmit}>
                 <label>
-                    <input type="text" value={text} onChange={(e) => setText(e.target.value)} />
+                    <input
+                        type="text"
+                        value={text}
+                        onChange={(e) => dispatch(setText(e.target.value))}
+                    />
                     <button></button>
                 </label>
             </form>

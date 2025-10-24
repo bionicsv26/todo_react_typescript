@@ -2,13 +2,13 @@ import { Form } from "../components/Form/Form"
 import { ToDoList } from "../components/ToDoList/ToDoList"
 import { ToDo } from "../models/todo-item"
 import { toast } from 'react-toastify';
-import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../store";
 import { createAction, deleteAction, updateAction } from "../feature/todoList";
+import { useAppDispatch, useAppSelector } from '../hooks'
 
 export const ToDoListPage = () => {
-  const todoList = useSelector((state: RootState) => state.todoList.todos)
-  const dispatch = useDispatch()
+  const todoList = useAppSelector((state: RootState) => state.todoList.todos)
+  const dispatch = useAppDispatch()
 
   const notifyInfo = (info: string) => {
     toast.info(info)
@@ -20,7 +20,7 @@ export const ToDoListPage = () => {
 
   const updateToDo = (toDoItem: ToDo) => {
     dispatch(updateAction(toDoItem))
-    notifyInfo(`Статус задачи ${toDoItem.text} изменен на ${toDoItem.isDone ? 'выполнен' : 'не выполнен'}`)
+    notifyInfo(`Статус задачи ${toDoItem.text} изменен на ${!toDoItem.isDone ? 'выполнен' : 'не выполнен'}`)
   }
 
   const deleteToDo = (toDoItem: ToDo) => {
