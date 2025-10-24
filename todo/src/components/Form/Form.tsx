@@ -1,7 +1,8 @@
 import React from 'react'
-import './Form.scss'
 import { useAppDispatch, useAppSelector } from '../../hooks'
 import { setText, clearText } from '../../feature/formSlice'
+import { FormControl, FormBlock, FormField, FormLabel, FormWrapper } from './Form.styled'
+import plusIcon from '../../assets/images/plus.png'
 
 export const Form = (props: { createNewToDo: Function }) => {
     const dispatch = useAppDispatch()
@@ -16,17 +17,18 @@ export const Form = (props: { createNewToDo: Function }) => {
     }
 
     return (
-        <div className="form-wrapper">
-            <form action="#" onSubmit={formSubmit}>
-                <label>
-                    <input
+        // <div className="form-wrapper">
+        <FormWrapper>
+            <FormBlock action="#" onSubmit={formSubmit}>
+                <FormLabel>
+                    <FormField
                         type="text"
                         value={text}
                         onChange={(e) => dispatch(setText(e.target.value))}
                     />
-                    <button></button>
-                </label>
-            </form>
-        </div>
+                    <FormControl icon={plusIcon} />
+                </FormLabel>
+            </FormBlock>
+        </FormWrapper>
     )
 }
