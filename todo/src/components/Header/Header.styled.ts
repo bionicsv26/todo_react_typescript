@@ -35,3 +35,52 @@ export const HeaderNavLink = styled(NavLink)`
     color: #ffffff33;
   }
 `
+
+export const HeaderToggleBlock = styled.div`
+  position: absolute;
+  top: 50%;
+  right: 0;
+  transform: translateY(-50%);
+`
+
+export const HeaderThemeToggleButton = styled.button`
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  cursor: pointer;
+  padding: 0;
+`
+
+export const Tooltip = styled.span`
+  visibility: hidden;
+  background: rgba(0, 0, 0, 0.8);
+  color: white;
+  text-align: center;
+  border-radius: 4px;
+  padding: 4px 8px;
+  position: absolute;
+  z-index: 1000;
+  top: 50%;
+  right: 125%; /* ← слева от кнопки */
+  transform: translateY(-50%);
+  white-space: nowrap;
+  font-size: 12px;
+  opacity: 0;
+  transition: opacity 0.3s;
+
+  ${HeaderThemeToggleButton}:hover & {
+    visibility: visible;
+    opacity: 1;
+  }
+
+  &::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 100%; /* стрелка направо */
+    margin-top: -5px;
+    border-width: 5px;
+    border-style: solid;
+    border-color: transparent transparent transparent rgba(0, 0, 0, 0.8);
+  }
+`
